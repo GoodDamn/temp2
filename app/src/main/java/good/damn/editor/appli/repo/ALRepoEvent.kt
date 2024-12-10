@@ -50,7 +50,6 @@ class ALRepoEvent(
                 str
             ).toEventsList()
 
-
             withContext(
                 Dispatchers.Main
             ) {

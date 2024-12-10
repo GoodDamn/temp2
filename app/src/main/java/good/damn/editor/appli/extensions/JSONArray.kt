@@ -18,8 +18,8 @@ inline fun JSONArray.toEventsList(): List<ALModelEvent> {
                 obj.getInt("id"),
                 obj.getString("name"),
                 obj.getString("desc"),
-                obj.getBoolean("register"),
-                obj.getInt("event_date")
+                obj.getInt("register").toBool(),
+                obj.getInt("date")
             )
         )
     }
