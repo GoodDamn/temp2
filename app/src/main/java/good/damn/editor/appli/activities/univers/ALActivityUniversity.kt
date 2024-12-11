@@ -1,4 +1,4 @@
-package good.damn.editor.appli.activities
+package good.damn.editor.appli.activities.univers
 
 import android.os.Bundle
 import android.widget.LinearLayout
@@ -7,9 +7,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import good.damn.editor.appli.ALApp
 import good.damn.editor.appli.extensions.toast
-import good.damn.editor.appli.models.ALModelEvent
 import good.damn.editor.appli.models.ALModelUniversity
-import good.damn.editor.appli.repo.eventinfo.ALListenerOnGetEventInfo
 import good.damn.editor.appli.repo.listener.ALListenerOnError
 import good.damn.editor.appli.repo.university.ALListenerOnGetUniversityInfo
 

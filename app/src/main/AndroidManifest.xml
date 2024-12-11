@@ -17,7 +17,7 @@
         android:theme="@style/Theme.Appli"
         tools:targetApi="31">
 
-        <activity android:name=".activities.ALActivityMain"
+        <activity android:name=".activities.ALActivityEntry"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -25,14 +25,14 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".activities.ALActivityMain"/>
+
         <activity android:name=".activities.auth.ALActivitySignIn"/>
-        <activity android:name=".activities.ALActivityListEvents"/>
         <activity android:name=".activities.auth.ALActivityLogin"/>
 
-        <activity android:name=".activities.ALActivityUniversities"/>
-        <activity android:name=".activities.ALActivityEvent"/>
+        <activity android:name=".activities.events.ALActivityEvent"/>
 
-        <activity android:name=".activities.ALActivityUniversity"/>
+        <activity android:name=".activities.univers.ALActivityUniversity"/>
 
     </application>
 

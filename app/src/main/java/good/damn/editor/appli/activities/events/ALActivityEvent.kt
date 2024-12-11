@@ -1,4 +1,4 @@
-package good.damn.editor.appli.activities
+package good.damn.editor.appli.activities.events
 
 import android.os.Bundle
 import android.view.View

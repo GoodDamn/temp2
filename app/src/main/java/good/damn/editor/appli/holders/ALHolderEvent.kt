@@ -1,22 +1,18 @@
 package good.damn.editor.appli.holders
 
 import android.content.Context
-import android.content.res.TypedArray
 import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import good.damn.editor.appli.ALApp
-import good.damn.editor.appli.activities.ALActivityEvent
-import good.damn.editor.appli.activities.ALActivityListEvents
-import good.damn.editor.appli.extensions.focusActivity
+import good.damn.editor.appli.activities.events.ALActivityEvent
 import good.damn.editor.appli.extensions.focusActivityIntent
 import good.damn.editor.appli.extensions.toGregorianString
 import good.damn.editor.appli.models.ALModelEvent

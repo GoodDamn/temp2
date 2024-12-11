@@ -6,7 +6,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import good.damn.editor.appli.ALApp
-import good.damn.editor.appli.activities.ALActivityListEvents
+import good.damn.editor.appli.activities.ALActivityMain
 import good.damn.editor.appli.extensions.focusActivity
 import good.damn.editor.appli.extensions.toast
 import good.damn.editor.appli.client.ALClientHttp
@@ -112,7 +112,7 @@ class ALActivitySignIn
     ) {
         ALApp.userId = id
         focusActivity(
-            ALActivityListEvents::class.java
+            ALActivityMain::class.java
         )
     }
 

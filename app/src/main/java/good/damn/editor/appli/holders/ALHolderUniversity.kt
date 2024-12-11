@@ -1,7 +1,6 @@
 package good.damn.editor.appli.holders
 
 import android.content.Context
-import android.content.res.TypedArray
 import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.Gravity
@@ -13,13 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import good.damn.editor.appli.ALApp
-import good.damn.editor.appli.activities.ALActivityEvent
-import good.damn.editor.appli.activities.ALActivityListEvents
-import good.damn.editor.appli.activities.ALActivityUniversity
-import good.damn.editor.appli.extensions.focusActivity
+import good.damn.editor.appli.activities.univers.ALActivityUniversity
 import good.damn.editor.appli.extensions.focusActivityIntent
-import good.damn.editor.appli.extensions.toGregorianString
-import good.damn.editor.appli.models.ALModelEvent
 import good.damn.editor.appli.models.ALModelUniversity
 
 class ALHolderUniversity(

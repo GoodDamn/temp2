@@ -1,16 +1,16 @@
 package good.damn.editor.appli.activities
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import good.damn.editor.appli.activities.auth.ALActivityLogin
-import good.damn.editor.appli.activities.auth.ALActivitySignIn
-import good.damn.editor.appli.extensions.focusActivity
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
+import good.damn.editor.appli.fragments.ALFragmentAccount
+import good.damn.editor.appli.fragments.ALFragmentEvents
+import good.damn.editor.appli.fragments.ALFragmentUniversities
 
 class ALActivityMain
 : AppCompatActivity() {
-
 
     override fun onCreate(
         savedInstanceState: Bundle?
@@ -21,48 +21,29 @@ class ALActivityMain
 
         val context = this
 
-        LinearLayout(
+        ViewPager2(
             context
         ).apply {
 
-            orientation = LinearLayout
-                .VERTICAL
+            val fragments: Array<Fragment> = arrayOf(
+                ALFragmentEvents(),
+                ALFragmentUniversities(),
+                ALFragmentAccount()
+            )
 
-            Button(
-                context
-            ).apply {
+            adapter = object: FragmentStateAdapter(
+                supportFragmentManager,
+                lifecycle
+            ) {
+                override fun getItemCount() =
+                    fragments.size
 
-                text = "Войти"
+                override fun createFragment(
+                    position: Int
+                ) = fragments[
+                    position
+                ]
 
-                setOnClickListener {
-                    focusActivity(
-                        ALActivityLogin::class.java
-                    )
-                }
-
-                addView(
-                    this,
-                    -1,
-                    -2
-                )
-            }
-
-            Button(
-                context
-            ).apply {
-                text = "Зарегистрироваться"
-
-                setOnClickListener {
-                    focusActivity(
-                        ALActivitySignIn::class.java
-                    )
-                }
-
-                addView(
-                    this,
-                    -1,
-                    -2
-                )
             }
 
             setContentView(
