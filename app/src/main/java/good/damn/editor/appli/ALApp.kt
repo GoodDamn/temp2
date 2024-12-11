@@ -4,6 +4,7 @@ import android.app.Application
 import good.damn.editor.appli.enums.ALEnumRole
 import good.damn.editor.appli.repo.ALReposEvent
 import good.damn.editor.appli.repo.ALReposUniversity
+import good.damn.editor.appli.repo.ALReposUser
 import okhttp3.OkHttpClient
 
 class ALApp
@@ -23,6 +24,10 @@ class ALApp
         )
 
         val reposEvents = ALReposEvent(
+            client
+        )
+
+        val reposUser = ALReposUser(
             client
         )
     }
