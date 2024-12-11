@@ -10,17 +10,11 @@ inline fun JSONArray.toEventsList(): List<ALModelEvent> {
         count
     )
 
-    var obj: JSONObject
     for (i in 0 until count) {
-        obj = getJSONObject(i)
         list.add(
-            ALModelEvent(
-                obj.getInt("id"),
-                obj.getString("name"),
-                obj.getString("desc"),
-                obj.getInt("register").toBool(),
-                obj.getInt("date")
-            )
+            getJSONObject(
+                i
+            ).toEventModel()
         )
     }
 

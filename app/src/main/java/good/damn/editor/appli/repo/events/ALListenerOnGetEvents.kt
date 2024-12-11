@@ -1,4 +1,4 @@
-package good.damn.editor.appli.repo.listener
+package good.damn.editor.appli.repo.events
 
 import good.damn.editor.appli.models.ALModelEvent
 

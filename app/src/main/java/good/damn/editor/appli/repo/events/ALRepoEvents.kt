@@ -1,10 +1,8 @@
-package good.damn.editor.appli.repo
+package good.damn.editor.appli.repo.events
 
 import good.damn.editor.appli.ALApp
-import good.damn.editor.appli.client.ALClientHttp
 import good.damn.editor.appli.extensions.toEventsList
 import good.damn.editor.appli.repo.listener.ALListenerOnError
-import good.damn.editor.appli.repo.listener.ALListenerOnGetEvents
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,7 +11,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
 
-class ALRepoEvent(
+class ALRepoEvents(
     private val scope: CoroutineScope
 ) {
 

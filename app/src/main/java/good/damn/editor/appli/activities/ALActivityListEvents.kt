@@ -1,22 +1,22 @@
 package good.damn.editor.appli.activities
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import good.damn.editor.appli.ALApp
 import good.damn.editor.appli.adapters.ALAdapterEvents
 import good.damn.editor.appli.extensions.toast
 import good.damn.editor.appli.models.ALModelEvent
-import good.damn.editor.appli.repo.ALRepoEvent
+import good.damn.editor.appli.repo.events.ALRepoEvents
 import good.damn.editor.appli.repo.listener.ALListenerOnError
-import good.damn.editor.appli.repo.listener.ALListenerOnGetEvents
+import good.damn.editor.appli.repo.events.ALListenerOnGetEvents
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
 class ALActivityListEvents
 : AppCompatActivity(),
-ALListenerOnGetEvents,
+    ALListenerOnGetEvents,
 ALListenerOnError {
 
     override fun onCreate(
@@ -26,11 +26,7 @@ ALListenerOnError {
             savedInstanceState
         )
 
-        ALRepoEvent(
-            CoroutineScope(
-                Dispatchers.IO
-            )
-        ).apply {
+        ALApp.repos.events.apply {
             onGetEvents = this@ALActivityListEvents
             onError = this@ALActivityListEvents
             getEventsAsync()
@@ -49,6 +45,11 @@ ALListenerOnError {
                 LinearLayoutManager.VERTICAL,
                 false
             )
+
+            setBackgroundColor(
+                0xffffffff.toInt()
+            )
+
             adapter = ALAdapterEvents(
                 events
             )
