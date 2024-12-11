@@ -7,6 +7,7 @@ import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -68,10 +69,10 @@ class ALHolderEvent(
 
             layoutParams = ViewGroup.LayoutParams(
                 (ALApp.width * 0.8f).toInt(),
-                (ALApp.height * 0.4f).toInt()
+                -2
             )
 
-            radius = layoutParams.height * 0.2f
+            radius = layoutParams.width * 0.03f
 
             var textViewName: TextView
             var textViewDesc: TextView
@@ -84,24 +85,26 @@ class ALHolderEvent(
                 content.orientation = LinearLayout
                     .VERTICAL
 
+                content.gravity = Gravity
+                    .CENTER_HORIZONTAL
+
                 textViewName = TextView(
                     context
                 ).apply {
 
                     typeface = Typeface.DEFAULT_BOLD
 
+                    gravity = Gravity.CENTER_HORIZONTAL
+
                     setTextSize(
                         TypedValue.COMPLEX_UNIT_PX,
-                        this@run.layoutParams.height * 0.1f
-                    )
-
-                    layoutParams = ViewGroup.LayoutParams(
-                        -1,
-                        (this@run.layoutParams.height * 0.1f).toInt()
+                        this@run.layoutParams.height * 0.06f
                     )
 
                     content.addView(
-                        this
+                        this,
+                        -1,
+                        -2
                     )
                 }
 
@@ -109,18 +112,17 @@ class ALHolderEvent(
                     context
                 ).apply {
 
+                    gravity = Gravity.CENTER_HORIZONTAL
+
                     setTextSize(
                         TypedValue.COMPLEX_UNIT_PX,
                         this@run.layoutParams.height * 0.05f
                     )
 
-                    layoutParams = ViewGroup.LayoutParams(
-                        -1,
-                        (this@run.layoutParams.height * 0.8f).toInt()
-                    )
-
                     content.addView(
-                        this
+                        this,
+                        -1,
+                        -2
                     )
                 }
 
@@ -128,25 +130,28 @@ class ALHolderEvent(
                     context
                 ).apply {
 
+                    gravity = Gravity.CENTER_HORIZONTAL
+
                     setTextSize(
                         TypedValue.COMPLEX_UNIT_PX,
                         this@run.layoutParams.height * 0.05f
                     )
 
-                    layoutParams = ViewGroup.LayoutParams(
-                        -1,
-                        (this@run.layoutParams.height * 0.1f).toInt()
-                    )
-
                     content.addView(
-                        this
+                        this,
+                        -1,
+                        -2
                     )
                 }
 
                 addView(
-                    content
+                    content,
+                    -1,
+                    -2
                 )
             }
+
+
 
             val holder = ALHolderEvent(
                 textViewName,

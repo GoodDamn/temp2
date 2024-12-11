@@ -93,7 +93,7 @@ class ALRepoEventInfo(
         ).toEventModel()
 
         withContext(
-            Dispatchers.IO
+            Dispatchers.Main
         ) {
             onGetEventInfo?.onGetEventInfo(
                 json

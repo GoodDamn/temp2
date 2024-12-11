@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import good.damn.editor.appli.ALApp
 import good.damn.editor.appli.activities.ALActivityEvent
 import good.damn.editor.appli.activities.ALActivityListEvents
+import good.damn.editor.appli.activities.ALActivityUniversity
 import good.damn.editor.appli.extensions.focusActivity
 import good.damn.editor.appli.extensions.focusActivityIntent
 import good.damn.editor.appli.extensions.toGregorianString
@@ -45,10 +46,10 @@ class ALHolderUniversity(
             ?: return
 
         (v?.context as? AppCompatActivity)?.focusActivityIntent(
-            ALActivityEvent::class.java
+            ALActivityUniversity::class.java
         ) {
             putExtra(
-                ALActivityEvent.EXTRA_ID,
+                ALActivityUniversity.EXTRA_ID,
                 id
             )
         }
@@ -67,10 +68,10 @@ class ALHolderUniversity(
 
             layoutParams = ViewGroup.LayoutParams(
                 (ALApp.width * 0.8f).toInt(),
-                (ALApp.height * 0.4f).toInt()
+                -2
             )
 
-            radius = layoutParams.height * 0.2f
+            radius = layoutParams.width * 0.03f
 
             var textViewName: TextView
             var textViewDesc: TextView
@@ -82,24 +83,25 @@ class ALHolderUniversity(
                 content.orientation = LinearLayout
                     .VERTICAL
 
+                content.gravity = Gravity.CENTER_HORIZONTAL
+
                 textViewName = TextView(
                     context
                 ).apply {
 
                     typeface = Typeface.DEFAULT_BOLD
 
+                    gravity = Gravity.CENTER_HORIZONTAL
+
                     setTextSize(
                         TypedValue.COMPLEX_UNIT_PX,
                         this@run.layoutParams.height * 0.1f
                     )
 
-                    layoutParams = ViewGroup.LayoutParams(
-                        -1,
-                        (this@run.layoutParams.height * 0.1f).toInt()
-                    )
-
                     content.addView(
-                        this
+                        this,
+                        -1,
+                        -2
                     )
                 }
 
@@ -107,18 +109,17 @@ class ALHolderUniversity(
                     context
                 ).apply {
 
+                    gravity = Gravity.CENTER_HORIZONTAL
+
                     setTextSize(
                         TypedValue.COMPLEX_UNIT_PX,
                         this@run.layoutParams.height * 0.05f
                     )
 
-                    layoutParams = ViewGroup.LayoutParams(
-                        -1,
-                        (this@run.layoutParams.height * 0.8f).toInt()
-                    )
-
                     content.addView(
-                        this
+                        this,
+                        -1,
+                        -2
                     )
                 }
 

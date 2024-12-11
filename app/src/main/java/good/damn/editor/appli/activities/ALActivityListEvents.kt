@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import good.damn.editor.appli.ALApp
 import good.damn.editor.appli.adapters.ALAdapterEvents
+import good.damn.editor.appli.decorations.ALDecorationMargin
 import good.damn.editor.appli.extensions.focusActivity
 import good.damn.editor.appli.extensions.toast
 import good.damn.editor.appli.models.ALModelEvent
@@ -57,6 +58,12 @@ ALListenerOnError {
 
                 adapter = ALAdapterEvents(
                     events
+                )
+
+                addItemDecoration(
+                    ALDecorationMargin(
+                        (ALApp.width * 0.1f).toInt()
+                    )
                 )
 
                 root.addView(

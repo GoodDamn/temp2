@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import good.damn.editor.appli.ALApp
 import good.damn.editor.appli.adapters.ALAdapterUniversities
+import good.damn.editor.appli.decorations.ALDecorationMargin
 import good.damn.editor.appli.extensions.toast
 import good.damn.editor.appli.models.ALModelUniversity
 import good.damn.editor.appli.repo.listener.ALListenerOnError
@@ -45,6 +46,12 @@ class ALActivityUniversities
                 context,
                 LinearLayoutManager.VERTICAL,
                 false
+            )
+
+            addItemDecoration(
+                ALDecorationMargin(
+                    (ALApp.width * 0.1f).toInt()
+                )
             )
 
             adapter = ALAdapterUniversities(
