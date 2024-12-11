@@ -1,31 +1,28 @@
 package good.damn.editor.appli.activities
 
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import good.damn.editor.appli.ALApp
-import good.damn.editor.appli.extensions.toGregorianString
 import good.damn.editor.appli.extensions.toast
 import good.damn.editor.appli.models.ALModelEvent
-import good.damn.editor.appli.repo.eventinfo.ALListenerOnCreateForm
+import good.damn.editor.appli.models.ALModelUniversity
 import good.damn.editor.appli.repo.eventinfo.ALListenerOnGetEventInfo
 import good.damn.editor.appli.repo.listener.ALListenerOnError
+import good.damn.editor.appli.repo.university.ALListenerOnGetUniversityInfo
 
-class ALActivityEvent
+class ALActivityUniversity
 : AppCompatActivity(),
 ALListenerOnError,
-ALListenerOnGetEventInfo,
-ALListenerOnCreateForm, View.OnClickListener {
+ALListenerOnGetUniversityInfo {
 
     companion object {
         const val EXTRA_ID = "id"
     }
 
-    private var mEventId = -1
+    private var mUniversityId = -1
 
     override fun onCreate(
         savedInstanceState: Bundle?
@@ -34,18 +31,17 @@ ALListenerOnCreateForm, View.OnClickListener {
             savedInstanceState
         )
 
-        mEventId = intent.getIntExtra(
+        mUniversityId = intent.getIntExtra(
             EXTRA_ID,
             -1
         )
 
-        ALApp.reposEvents.eventInfo.apply {
-            onError = this@ALActivityEvent
-            onGetEventInfo = this@ALActivityEvent
-            onFormCreate = this@ALActivityEvent
+        ALApp.reposUniversities.university.apply {
+            onError = this@ALActivityUniversity
+            onGetUniversityInfo = this@ALActivityUniversity
 
-            getEventInfoAsync(
-                mEventId
+            getUniversityInfoAsync(
+                mUniversityId
             )
         }
 
@@ -53,32 +49,15 @@ ALListenerOnCreateForm, View.OnClickListener {
 
     override suspend fun onError(
         msg: String
-    ) {
-        toast(msg)
-    }
+    ) = toast(msg)
 
-    override suspend fun onGetEventInfo(
-        event: ALModelEvent
-    ) = layout(
-        event
-    )
-
-    override suspend fun onCreateForm() =
-        toast("Запись успешна")
-
-    override fun onClick(
-        v: View
-    ) {
-        v.isEnabled = false
-
-        ALApp.reposEvents.eventInfo.createForm(
-            mEventId
-        )
-    }
+    override suspend fun onGetUniversityInfo(
+        university: ALModelUniversity
+    ) = layout(university)
 
 
     private inline fun layout(
-        model: ALModelEvent
+        model: ALModelUniversity
     ) {
         val context = this
 
@@ -109,19 +88,6 @@ ALListenerOnCreateForm, View.OnClickListener {
                     context
                 ).apply {
 
-                    text = model.date.toGregorianString()
-
-                    addView(
-                        this,
-                        -2,
-                        -2
-                    )
-                }
-
-                TextView(
-                    context
-                ).apply {
-
                     text = model.desc
 
                     addView(
@@ -129,25 +95,6 @@ ALListenerOnCreateForm, View.OnClickListener {
                         -2,
                         -2
                     )
-                }
-
-                if (model.withRegister) {
-                    Button(
-                        context
-                    ).apply {
-
-                        text = "Зарегистрироваться"
-
-                        setOnClickListener(
-                            this@ALActivityEvent
-                        )
-
-                        addView(
-                            this,
-                            -1,
-                            -2
-                        )
-                    }
                 }
 
                 scroll.addView(
@@ -160,4 +107,5 @@ ALListenerOnCreateForm, View.OnClickListener {
             )
         }
     }
+
 }

@@ -1,7 +1,7 @@
-package good.damn.editor.appli.repo.eventinfo
+package good.damn.editor.appli.repo.university
 
 import good.damn.editor.appli.ALApp
-import good.damn.editor.appli.extensions.toEventModel
+import good.damn.editor.appli.extensions.toUniversityModel
 import good.damn.editor.appli.repo.listener.ALListenerOnError
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -11,47 +11,19 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
 
-class ALRepoEventInfo(
+class ALRepoUniversity(
     private val scope: CoroutineScope,
     private val client: OkHttpClient
 ) {
 
     companion object {
-        const val URL = "${ALApp.url}/event"
+        const val URL = "${ALApp.url}/university"
     }
 
-    var onFormCreate: ALListenerOnCreateForm? = null
-    var onGetEventInfo: ALListenerOnGetEventInfo? = null
+    var onGetUniversityInfo: ALListenerOnGetUniversityInfo? = null
     var onError: ALListenerOnError? = null
 
-    fun createForm(
-        eventId: Int
-    ) = scope.launch {
-        val response = client.newCall(
-            Request.Builder()
-                .url("$URL/$eventId/create")
-                .build()
-        ).execute()
-
-        if (response.code >= 400) {
-            withContext(
-                Dispatchers.Main
-            ) {
-                onError?.onError(
-                    "Error: ${response.code}"
-                )
-            }
-            return@launch
-        }
-
-        withContext(
-            Dispatchers.Main
-        ) {
-            onFormCreate?.onCreateForm()
-        }
-    }
-
-    fun getEventInfoAsync(
+    fun getUniversityInfoAsync(
         id: Int
     ) = scope.launch {
 
@@ -71,7 +43,7 @@ class ALRepoEventInfo(
                 Dispatchers.Main
             ) {
                 onError?.onError(
-                    "200: No body"
+                    "No body"
                 )
             }
             return@launch
@@ -82,7 +54,7 @@ class ALRepoEventInfo(
                 Dispatchers.Main
             ) {
                 onError?.onError(
-                    "Error: 400: $str"
+                    "Error: ${response.code} $str"
                 )
             }
             return@launch
@@ -90,15 +62,16 @@ class ALRepoEventInfo(
 
         val json = JSONObject(
             str
-        ).toEventModel()
+        ).toUniversityModel()
 
         withContext(
-            Dispatchers.IO
+            Dispatchers.Main
         ) {
-            onGetEventInfo?.onGetEventInfo(
+            onGetUniversityInfo?.onGetUniversityInfo(
                 json
             )
         }
+
     }
 
 }

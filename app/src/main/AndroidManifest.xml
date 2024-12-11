@@ -29,6 +29,11 @@
         <activity android:name=".activities.ALActivityListEvents"/>
         <activity android:name=".activities.auth.ALActivityLogin"/>
 
+        <activity android:name=".activities.ALActivityUniversities"/>
+        <activity android:name=".activities.ALActivityEvent"/>
+
+        <activity android:name=".activities.ALActivityUniversity"/>
+
     </application>
 
 </manifest>

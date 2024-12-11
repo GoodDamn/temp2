@@ -3,6 +3,8 @@ package good.damn.editor.appli
 import android.app.Application
 import good.damn.editor.appli.enums.ALEnumRole
 import good.damn.editor.appli.repo.ALReposEvent
+import good.damn.editor.appli.repo.ALReposUniversity
+import okhttp3.OkHttpClient
 
 class ALApp
 : Application() {
@@ -14,7 +16,15 @@ class ALApp
         var width = 0
         var height = 0
 
-        val repos = ALReposEvent()
+        val client = OkHttpClient()
+
+        val reposUniversities = ALReposUniversity(
+            client
+        )
+
+        val reposEvents = ALReposEvent(
+            client
+        )
     }
 
     override fun onCreate() {

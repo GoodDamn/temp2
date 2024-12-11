@@ -1,7 +1,7 @@
-package good.damn.editor.appli.repo.events
+package good.damn.editor.appli.repo.universities
 
 import good.damn.editor.appli.ALApp
-import good.damn.editor.appli.extensions.toEventsList
+import good.damn.editor.appli.extensions.toUniversitiesList
 import good.damn.editor.appli.repo.listener.ALListenerOnError
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -11,68 +11,63 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
 
-class ALRepoEvents(
+class ALRepoUniversities(
     private val scope: CoroutineScope,
     private val client: OkHttpClient
 ) {
-
     companion object {
-        const val URL_EVENTS = "${ALApp.url}/events"
+        const val URL = "${ALApp.url}/universities"
     }
 
-    var onGetEvents: ALListenerOnGetEvents? = null
-
+    var onGetUniversities: ALListenerOnGetUniversities? = null
     var onError: ALListenerOnError? = null
 
-    fun getEventsAsync() = scope.launch {
-
+    fun getUniversitiesAsync() = scope.launch {
         val response = client.newCall(
             Request.Builder()
-                .url(URL_EVENTS)
+                .url(URL)
                 .get()
                 .build()
         ).execute()
 
-        if (response.code == 200) {
-            val str = response.body?.string()
+        val str = response
+            .body
+            ?.string()
 
-            if (str == null) {
-                error(
-                    "200: No body"
-                )
-                return@launch
-            }
-
-            val events = JSONArray(
-                str
-            ).toEventsList()
-
+        if (str == null) {
             withContext(
                 Dispatchers.Main
             ) {
-                onGetEvents?.onGetEventsList(
-                    events
+                onError?.onError(
+                    "No body"
                 )
             }
-
             return@launch
         }
 
-        error(
-            "Error: ${response.code}"
-        )
-    }
+        if (response.code >= 400) {
+            withContext(
+                Dispatchers.Main
+            ) {
+                onError?.onError(
+                    "Error: ${response.code}"
+                )
+            }
+            return@launch
+        }
 
-    private suspend inline fun error(
-        msg: String
-    ) {
+        val json = JSONArray(
+            str
+        ).toUniversitiesList()
+
         withContext(
             Dispatchers.Main
         ) {
-            onError?.onError(
-                msg
+            onGetUniversities?.onGetUniversities(
+                json
             )
         }
+
     }
 
 }
