@@ -11,6 +11,7 @@ import good.damn.editor.appli.ALApp
 import good.damn.editor.appli.extensions.toGregorianString
 import good.damn.editor.appli.extensions.toast
 import good.damn.editor.appli.models.ALModelEvent
+import good.damn.editor.appli.repo.eventinfo.ALListenerOnCheckForm
 import good.damn.editor.appli.repo.eventinfo.ALListenerOnCreateForm
 import good.damn.editor.appli.repo.eventinfo.ALListenerOnGetEventInfo
 import good.damn.editor.appli.repo.listener.ALListenerOnError
@@ -19,13 +20,15 @@ class ALActivityEvent
 : AppCompatActivity(),
 ALListenerOnError,
 ALListenerOnGetEventInfo,
-ALListenerOnCreateForm, View.OnClickListener {
+ALListenerOnCreateForm, View.OnClickListener, ALListenerOnCheckForm {
 
     companion object {
         const val EXTRA_ID = "id"
     }
 
     private var mEventId = -1
+
+    private var mBtnRegister: Button? = null
 
     override fun onCreate(
         savedInstanceState: Bundle?
@@ -43,6 +46,7 @@ ALListenerOnCreateForm, View.OnClickListener {
             onError = this@ALActivityEvent
             onGetEventInfo = this@ALActivityEvent
             onFormCreate = this@ALActivityEvent
+            onCheckForm = this@ALActivityEvent
 
             getEventInfoAsync(
                 mEventId
@@ -66,12 +70,18 @@ ALListenerOnCreateForm, View.OnClickListener {
     override suspend fun onCreateForm() =
         toast("Запись успешна")
 
+    override suspend fun onCheckForm(
+        exists: Boolean
+    ) {
+        mBtnRegister?.isEnabled = !exists
+    }
+
     override fun onClick(
         v: View
     ) {
         v.isEnabled = false
 
-        ALApp.reposEvents.eventInfo.createForm(
+        ALApp.reposEvents.eventInfo.createFormAsync(
             mEventId
         )
     }
@@ -132,10 +142,11 @@ ALListenerOnCreateForm, View.OnClickListener {
                 }
 
                 if (model.withRegister) {
-                    Button(
+                    mBtnRegister = Button(
                         context
                     ).apply {
 
+                        isEnabled = false
                         text = "Зарегистрироваться"
 
                         setOnClickListener(
@@ -159,5 +170,9 @@ ALListenerOnCreateForm, View.OnClickListener {
                 scroll
             )
         }
+
+        ALApp.reposEvents.eventInfo.checkFormAsync(
+            mEventId
+        )
     }
 }

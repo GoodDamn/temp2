@@ -7,8 +7,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 
 class ALRepoEventInfo(
@@ -22,23 +24,66 @@ class ALRepoEventInfo(
 
     var onFormCreate: ALListenerOnCreateForm? = null
     var onGetEventInfo: ALListenerOnGetEventInfo? = null
+    var onCheckForm: ALListenerOnCheckForm? = null
     var onError: ALListenerOnError? = null
 
-    fun createForm(
+    fun checkFormAsync(
+        eventId: Int
+    ) = scope.launch {
+
+        val response = client.newCall(
+            Request.Builder()
+                .url("$URL/$eventId/check/${ALApp.userId}")
+                .get()
+                .build()
+        ).execute()
+
+
+        val code = response.code
+        withContext(
+            Dispatchers.Main
+        ) {
+            onCheckForm?.onCheckForm(
+                code == 200
+            )
+        }
+    }
+
+    fun createFormAsync(
         eventId: Int
     ) = scope.launch {
         val response = client.newCall(
             Request.Builder()
                 .url("$URL/$eventId/create")
+                .post(
+                    "{ \"userId\": ${ALApp.userId}}".toRequestBody(
+                        "application/json".toMediaType()
+                    )
+                )
                 .build()
         ).execute()
+
+        val str = response
+            .body
+            ?.string()
+
+        if (str == null) {
+            withContext(
+                Dispatchers.Main
+            ) {
+                onError?.onError(
+                    "Error: No body"
+                )
+            }
+            return@launch
+        }
 
         if (response.code >= 400) {
             withContext(
                 Dispatchers.Main
             ) {
                 onError?.onError(
-                    "Error: ${response.code}"
+                    "Error: ${response.code} $str"
                 )
             }
             return@launch
