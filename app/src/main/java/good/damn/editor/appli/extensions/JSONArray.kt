@@ -1,9 +1,8 @@
 package good.damn.editor.appli.extensions
 
-import good.damn.editor.appli.models.ALModelEvent
-import good.damn.editor.appli.models.ALModelUniversity
+import good.damn.editor.appli.models.event.ALModelEvent
+import good.damn.editor.appli.models.universe.ALModelUniversity
 import org.json.JSONArray
-import org.json.JSONObject
 
 inline fun JSONArray.toEventsList(): List<ALModelEvent> {
     val count = length()

@@ -2,9 +2,8 @@ package good.damn.editor.appli.repo.user
 
 import good.damn.editor.appli.ALApp
 import good.damn.editor.appli.extensions.toUserInfoModel
-import good.damn.editor.appli.models.ALModelUserInfo
+import good.damn.editor.appli.models.user.ALModelUserInfo
 import good.damn.editor.appli.repo.ALRepoBase
-import good.damn.editor.appli.repo.listener.ALListenerOnError
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

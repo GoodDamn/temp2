@@ -3,7 +3,7 @@ package good.damn.editor.appli.adapters
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import good.damn.editor.appli.holders.ALHolderUniversity
-import good.damn.editor.appli.models.ALModelUniversity
+import good.damn.editor.appli.models.universe.ALModelUniversity
 
 class ALAdapterUniversities(
     private val universities: List<ALModelUniversity>

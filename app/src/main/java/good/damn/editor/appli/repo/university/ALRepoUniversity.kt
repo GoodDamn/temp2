@@ -1,6 +1,7 @@
 package good.damn.editor.appli.repo.university
 
 import good.damn.editor.appli.ALApp
+import good.damn.editor.appli.extensions.toUniversityInfoModel
 import good.damn.editor.appli.extensions.toUniversityModel
 import good.damn.editor.appli.repo.ALRepoBase
 import good.damn.editor.appli.repo.listener.ALListenerOnError
@@ -54,7 +55,7 @@ class ALRepoUniversity(
 
         val json = JSONObject(
             str
-        ).toUniversityModel()
+        ).toUniversityInfoModel()
 
         withContext(
             Dispatchers.Main

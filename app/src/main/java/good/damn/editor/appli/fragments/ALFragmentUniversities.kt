@@ -11,12 +11,14 @@ import good.damn.editor.appli.ALApp
 import good.damn.editor.appli.adapters.ALAdapterUniversities
 import good.damn.editor.appli.decorations.ALDecorationMargin
 import good.damn.editor.appli.extensions.toast
-import good.damn.editor.appli.models.ALModelUniversity
+import good.damn.editor.appli.models.universe.ALModelUniversity
 import good.damn.editor.appli.repo.listener.ALListenerOnError
 import good.damn.editor.appli.repo.universities.ALListenerOnGetUniversities
 
 class ALFragmentUniversities
-: Fragment(), ALListenerOnGetUniversities, ALListenerOnError {
+: Fragment(),
+ALListenerOnGetUniversities,
+ALListenerOnError {
 
     private var mRecyclerView: RecyclerView? = null
 

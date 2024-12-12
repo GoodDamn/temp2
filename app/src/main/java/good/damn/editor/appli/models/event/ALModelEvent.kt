@@ -1,4 +1,4 @@
-package good.damn.editor.appli.models
+package good.damn.editor.appli.models.event
 
 data class ALModelEvent(
     val id: Int,

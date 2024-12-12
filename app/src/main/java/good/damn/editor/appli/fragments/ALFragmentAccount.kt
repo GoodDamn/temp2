@@ -10,7 +10,7 @@ import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import good.damn.editor.appli.ALApp
 import good.damn.editor.appli.extensions.toast
-import good.damn.editor.appli.models.ALModelUserInfo
+import good.damn.editor.appli.models.user.ALModelUserInfo
 import good.damn.editor.appli.repo.listener.ALListenerOnError
 import good.damn.editor.appli.repo.user.ALListenerOnGetUserInfo
 import good.damn.editor.appli.repo.user.ALListenerOnUpdateUserInfo

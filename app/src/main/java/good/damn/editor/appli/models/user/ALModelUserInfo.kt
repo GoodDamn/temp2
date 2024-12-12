@@ -1,4 +1,4 @@
-package good.damn.editor.appli.models
+package good.damn.editor.appli.models.user
 
 import org.json.JSONObject
 

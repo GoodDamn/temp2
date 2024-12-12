@@ -15,7 +15,7 @@ import good.damn.editor.appli.ALApp
 import good.damn.editor.appli.activities.events.ALActivityEvent
 import good.damn.editor.appli.extensions.focusActivityIntent
 import good.damn.editor.appli.extensions.toGregorianString
-import good.damn.editor.appli.models.ALModelEvent
+import good.damn.editor.appli.models.event.ALModelEvent
 
 class ALHolderEvent(
     private val textViewName: TextView,

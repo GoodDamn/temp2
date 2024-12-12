@@ -1,4 +1,4 @@
-package good.damn.editor.appli.models
+package good.damn.editor.appli.models.universe
 
 data class ALModelUniversity(
     val id: Int,

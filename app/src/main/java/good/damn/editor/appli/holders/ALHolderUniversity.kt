@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import good.damn.editor.appli.ALApp
 import good.damn.editor.appli.activities.univers.ALActivityUniversity
 import good.damn.editor.appli.extensions.focusActivityIntent
-import good.damn.editor.appli.models.ALModelUniversity
+import good.damn.editor.appli.models.universe.ALModelUniversity
 
 class ALHolderUniversity(
     private val textViewName: TextView,

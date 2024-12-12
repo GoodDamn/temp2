@@ -1,21 +1,17 @@
 package good.damn.editor.appli.fragments
 
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import good.damn.editor.appli.ALApp
 import good.damn.editor.appli.adapters.ALAdapterEvents
 import good.damn.editor.appli.decorations.ALDecorationMargin
-import good.damn.editor.appli.extensions.focusActivity
 import good.damn.editor.appli.extensions.toast
-import good.damn.editor.appli.models.ALModelEvent
+import good.damn.editor.appli.models.event.ALModelEvent
 import good.damn.editor.appli.repo.events.ALListenerOnGetEvents
 import good.damn.editor.appli.repo.listener.ALListenerOnError
 

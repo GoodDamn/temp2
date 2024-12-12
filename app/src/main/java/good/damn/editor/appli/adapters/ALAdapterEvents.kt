@@ -3,7 +3,7 @@ package good.damn.editor.appli.adapters
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import good.damn.editor.appli.holders.ALHolderEvent
-import good.damn.editor.appli.models.ALModelEvent
+import good.damn.editor.appli.models.event.ALModelEvent
 
 class ALAdapterEvents(
     private val events: List<ALModelEvent>

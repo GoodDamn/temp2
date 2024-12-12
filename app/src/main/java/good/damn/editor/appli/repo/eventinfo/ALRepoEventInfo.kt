@@ -2,6 +2,7 @@ package good.damn.editor.appli.repo.eventinfo
 
 import good.damn.editor.appli.ALApp
 import good.damn.editor.appli.extensions.toEventModel
+import good.damn.editor.appli.extensions.toEventModelInfo
 import good.damn.editor.appli.repo.ALRepoBase
 import good.damn.editor.appli.repo.listener.ALListenerOnError
 import kotlinx.coroutines.CoroutineScope
@@ -119,7 +120,7 @@ class ALRepoEventInfo(
 
         val json = JSONObject(
             str
-        ).toEventModel()
+        ).toEventModelInfo()
 
         withContext(
             Dispatchers.Main
