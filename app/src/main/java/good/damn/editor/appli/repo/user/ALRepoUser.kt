@@ -3,6 +3,7 @@ package good.damn.editor.appli.repo.user
 import good.damn.editor.appli.ALApp
 import good.damn.editor.appli.extensions.toUserInfoModel
 import good.damn.editor.appli.models.ALModelUserInfo
+import good.damn.editor.appli.repo.ALRepoBase
 import good.damn.editor.appli.repo.listener.ALListenerOnError
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +18,7 @@ import org.json.JSONObject
 class ALRepoUser(
     private val scope: CoroutineScope,
     private val client: OkHttpClient
-) {
+): ALRepoBase() {
 
     companion object {
         const val URL = "${ALApp.url}/user"
@@ -25,7 +26,6 @@ class ALRepoUser(
 
     var onUpdateUserInfo: ALListenerOnUpdateUserInfo? = null
     var onGetUserInfo: ALListenerOnGetUserInfo? = null
-    var onError: ALListenerOnError? = null
 
     fun updateUserInfoAsync(
         id: Int,
@@ -50,13 +50,9 @@ class ALRepoUser(
             return@launch
         }
 
-        withContext(
-            Dispatchers.Main
-        ) {
-            onError?.onError(
-                "Error: ${response.code} ${response.body?.string()}"
-            )
-        }
+        error(
+            "${response.code} ${response.body?.string()}"
+        )
     }
 
     fun getUserInfoAsync(
@@ -75,24 +71,16 @@ class ALRepoUser(
             ?.string()
 
         if (str == null) {
-            withContext(
-                Dispatchers.Main
-            ) {
-                onError?.onError(
-                    "Error: No body"
-                )
-            }
+            error(
+                "${response.code} No body"
+            )
             return@launch
         }
 
         if (response.code >= 400) {
-            withContext(
-                Dispatchers.Main
-            ) {
-                onError?.onError(
-                    "Error: ${response.code} $str"
-                )
-            }
+            error(
+                "${response.code} $str"
+            )
             return@launch
         }
 

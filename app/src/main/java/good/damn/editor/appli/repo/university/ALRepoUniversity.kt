@@ -2,6 +2,7 @@ package good.damn.editor.appli.repo.university
 
 import good.damn.editor.appli.ALApp
 import good.damn.editor.appli.extensions.toUniversityModel
+import good.damn.editor.appli.repo.ALRepoBase
 import good.damn.editor.appli.repo.listener.ALListenerOnError
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -14,14 +15,13 @@ import org.json.JSONObject
 class ALRepoUniversity(
     private val scope: CoroutineScope,
     private val client: OkHttpClient
-) {
+): ALRepoBase() {
 
     companion object {
         const val URL = "${ALApp.url}/university"
     }
 
     var onGetUniversityInfo: ALListenerOnGetUniversityInfo? = null
-    var onError: ALListenerOnError? = null
 
     fun getUniversityInfoAsync(
         id: Int
@@ -39,24 +39,16 @@ class ALRepoUniversity(
             ?.string()
 
         if (str == null) {
-            withContext(
-                Dispatchers.Main
-            ) {
-                onError?.onError(
-                    "No body"
-                )
-            }
+            error(
+                "${response.code} No body"
+            )
             return@launch
         }
 
         if (response.code >= 400) {
-            withContext(
-                Dispatchers.Main
-            ) {
-                onError?.onError(
-                    "Error: ${response.code} $str"
-                )
-            }
+            error(
+                "${response.code} $str"
+            )
             return@launch
         }
 

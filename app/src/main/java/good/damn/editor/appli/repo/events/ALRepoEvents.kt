@@ -2,6 +2,7 @@ package good.damn.editor.appli.repo.events
 
 import good.damn.editor.appli.ALApp
 import good.damn.editor.appli.extensions.toEventsList
+import good.damn.editor.appli.repo.ALRepoBase
 import good.damn.editor.appli.repo.listener.ALListenerOnError
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -14,15 +15,13 @@ import org.json.JSONArray
 class ALRepoEvents(
     private val scope: CoroutineScope,
     private val client: OkHttpClient
-) {
+): ALRepoBase() {
 
     companion object {
         const val URL_EVENTS = "${ALApp.url}/events"
     }
 
     var onGetEvents: ALListenerOnGetEvents? = null
-
-    var onError: ALListenerOnError? = null
 
     fun getEventsAsync() = scope.launch {
 
@@ -62,17 +61,4 @@ class ALRepoEvents(
             "Error: ${response.code}"
         )
     }
-
-    private suspend inline fun error(
-        msg: String
-    ) {
-        withContext(
-            Dispatchers.Main
-        ) {
-            onError?.onError(
-                msg
-            )
-        }
-    }
-
 }

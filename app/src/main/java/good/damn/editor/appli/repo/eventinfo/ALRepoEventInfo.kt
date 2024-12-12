@@ -2,6 +2,7 @@ package good.damn.editor.appli.repo.eventinfo
 
 import good.damn.editor.appli.ALApp
 import good.damn.editor.appli.extensions.toEventModel
+import good.damn.editor.appli.repo.ALRepoBase
 import good.damn.editor.appli.repo.listener.ALListenerOnError
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +17,7 @@ import org.json.JSONObject
 class ALRepoEventInfo(
     private val scope: CoroutineScope,
     private val client: OkHttpClient
-) {
+): ALRepoBase() {
 
     companion object {
         const val URL = "${ALApp.url}/event"
@@ -25,7 +26,6 @@ class ALRepoEventInfo(
     var onFormCreate: ALListenerOnCreateForm? = null
     var onGetEventInfo: ALListenerOnGetEventInfo? = null
     var onCheckForm: ALListenerOnCheckForm? = null
-    var onError: ALListenerOnError? = null
 
     fun checkFormAsync(
         eventId: Int
@@ -68,24 +68,16 @@ class ALRepoEventInfo(
             ?.string()
 
         if (str == null) {
-            withContext(
-                Dispatchers.Main
-            ) {
-                onError?.onError(
-                    "Error: No body"
-                )
-            }
+            error(
+                "No body"
+            )
             return@launch
         }
 
         if (response.code >= 400) {
-            withContext(
-                Dispatchers.Main
-            ) {
-                onError?.onError(
-                    "Error: ${response.code} $str"
-                )
-            }
+            error(
+                "${response.code} $str"
+            )
             return@launch
         }
 
@@ -112,24 +104,16 @@ class ALRepoEventInfo(
             ?.string()
 
         if (str == null) {
-            withContext(
-                Dispatchers.Main
-            ) {
-                onError?.onError(
-                    "200: No body"
-                )
-            }
+            error(
+                "${response.code} No body"
+            )
             return@launch
         }
 
         if (response.code >= 400) {
-            withContext(
-                Dispatchers.Main
-            ) {
-                onError?.onError(
-                    "Error: 400: $str"
-                )
-            }
+            error(
+                "${response.code} $str"
+            )
             return@launch
         }
 
